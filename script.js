@@ -100,5 +100,5 @@ function displayResults(integerListArray,results, seriesDigits){
     digits = arrayList.slice(indexOfLargestNumber,(indexOfLargestNumber+seriesDigits)).join("*");
 
 
-    $result.innerHTML = `Largest product for a series of ${seriesDigits} digit(s) is ${largestNumber} (${digits}). index:${indexOfLargestNumber}`
+    $result.innerHTML = `For the input '${$integerList.value}', the largest product for a series of ${seriesDigits} digit(s) is ${largestNumber} (${digits}). index:${indexOfLargestNumber}`
 }
