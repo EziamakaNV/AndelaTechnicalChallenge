@@ -9,9 +9,67 @@ const $compute = document.getElementById("compute");
 
 
 $compute.addEventListener("click",(event)=>{
+
+    
+
+    //Ran test to ensure that the input values
+    //can be converted to integers.
+    //Using Number() function.
+    //This will cater for unwanted input
+    //e.g letters or punctuation marks
+    let isIntegerListValid = true;
+    let isNumberOfSeriesValid = true;
+
+    
+
+    
+/////////////////////////////////////////////////////////////////////////////
+//TEST FOR WRONG INPUT
+////////////////////////////////////////////////////////////////////////////
+
+    //Check if any of the inputs are empty
+    if(!$integerList.value || !$nosOfSeries.value){
+        $result.innerHTML=`You have an empty input! Please amend and retry.`;
+        return;
+    }
+
+
+    //using Number() function to convert the string to numbers
+    //the Number() function will return NaN for strings that 
+    //cant be changed to numbers. Using that I'll update the UI
+    //accordingly.
+
+    //Check if values the result of the number function
+    //is NaN or not.
+    if(isNaN(Number($integerList.value)) === true){
+        isIntegerListValid = false;
+    }
+
+    if(isNaN(Number($nosOfSeries.value)) === true){
+        isNumberOfSeriesValid = false;
+    }
+    console.log(isIntegerListValid);
+
+    if((isIntegerListValid === false) && (isNumberOfSeriesValid === false)){
+        $result.innerHTML = `'Digits' and 'Number Of Series' entered are incorrect. Please ensure the values are numbers and try again. Thanks`;
+        return;
+    }
+    else if(isIntegerListValid === false){
+        $result.innerHTML = `'Digit(s)' entered are incorrect. Please ensure the 'Digit(s)' are numbers and try again. Thanks`;
+        return;
+    }
+    else if(isNumberOfSeriesValid === false){
+        $result.innerHTML = `'Number Of Series' entered are incorrect. Please ensure the 'Number Of Series' are numbers and try again. Thanks`;
+        return;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    // END OF TEST FOR WRONG INPUT
+    ///////////////////////////////////////////////////////////////////////
+
+
     //converting integer list from string to number
     //and storing in an array
-
     const integerListArray = $integerList.value.split("").map((x)=>Number(x));
 
     //series Digits products value
@@ -35,7 +93,7 @@ $compute.addEventListener("click",(event)=>{
             console.log(computeSeries);
 
             //conduct the multiplication of the numbers
-            //from the array and store in result object;
+            //from the array and store in result array;
             results[x] = computeSeries.reduce((total, number) => {
                 return total*number;
             });
@@ -63,14 +121,12 @@ $compute.addEventListener("click",(event)=>{
 
     displayResults(integerListArray,results,seriesDigits);
     
-
-    
 });
 
 
 //created a function to find the largest number in
 //the results array and then determine the three digits
-//that were involved in the product of digits
+//that were involved in the product of the digits
 
 function displayResults(integerListArray,results, seriesDigits){
     let arrayList = integerListArray;
@@ -100,5 +156,6 @@ function displayResults(integerListArray,results, seriesDigits){
     digits = arrayList.slice(indexOfLargestNumber,(indexOfLargestNumber+seriesDigits)).join("*");
 
 
-    $result.innerHTML = `For the input '${$integerList.value}', the largest product for a series of ${seriesDigits} digit(s) is ${largestNumber} (${digits}). index:${indexOfLargestNumber}`
+    $result.innerHTML = `For the input '${$integerList.value}', the largest product for a series of ${seriesDigits} digit(s) is ${largestNumber} (${digits}).`
 }
+
