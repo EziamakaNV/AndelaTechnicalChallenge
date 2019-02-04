@@ -48,7 +48,7 @@ $compute.addEventListener("click",(event)=>{
     if(isNaN(Number($nosOfSeries.value)) === true){
         isNumberOfSeriesValid = false;
     }
-    console.log(isIntegerListValid);
+    
 
     if((isIntegerListValid === false) && (isNumberOfSeriesValid === false)){
         $result.innerHTML = `'Digits' and 'Number Of Series' entered are incorrect. Please ensure the values are numbers and try again. Thanks`;
@@ -72,17 +72,18 @@ $compute.addEventListener("click",(event)=>{
     //and storing in an array
     const integerListArray = $integerList.value.split("").map((x)=>Number(x));
 
-    //series Digits products value
+    //series of Digits value
     const seriesDigits = Number($nosOfSeries.value);
-    console.log(integerListArray);
-    //array containing result of product of digits;
+
+    //Initialise array that will contain the results 
+    //of the products of the series digits;
     let results = [];
 
     //carry out calculations to find
-    //largest product of a series of 3 digits
+    //largest product of a series of (x) digits
 
     for(let x = 0; x < integerListArray.length; x++){
-        console.log(x+seriesDigits,integerListArray.length);
+        
 
         //from where we are in the array
         //check if the numbers to compute exceed the array length
@@ -90,14 +91,15 @@ $compute.addEventListener("click",(event)=>{
             
             //extract the part of the array needed
             let computeSeries = integerListArray.slice(x,(x+seriesDigits));
-            console.log(computeSeries);
+            
 
-            //conduct the multiplication of the numbers
-            //from the array and store in result array;
+            //conducted the multiplication of the numbers
+            //from the computeSeries array and store in the results array;
+            //using the reduce array method
             results[x] = computeSeries.reduce((total, number) => {
                 return total*number;
             });
-            console.log(results);
+            
 
         }
         else{
@@ -146,7 +148,7 @@ function displayResults(integerListArray,results, seriesDigits){
         }
     });
 
-    //use the indexOfLargestNumber
+    //used the indexOfLargestNumber
     //to find the digits used in the product
     //
     //The index value of a result in the "result" array
